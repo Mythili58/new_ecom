@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+{% block title %}Our Plants{% endblock %}
+{% block content %}
+  <h2>Available Plants</h2>
+  <ul class="plant-grid">
+    {% for plant in plants %}
+      <li>
+        <strong>{{ plant.name }}</strong> ({{ plant.species }})<br>
+        Light: {{ plant.light_requirements }}<br>
+        Care: {{ plant.care_difficulty }}<br>
+        Allergy: {{ plant.allergy_info }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

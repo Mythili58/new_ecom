@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% block title %}My Wishlist{% endblock %}
+{% block content %}
+  <h2>My Wishlist</h2>
+  <ul>
+    {% for item in items %}
+      <li>{{ item.plant.name }} — <a href="#">Remove</a></li>
+    {% empty %}
+      <li>Your wishlist is empty.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
