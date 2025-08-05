@@ -1,0 +1,160 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .dashboard-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-image: url("{% static 'base/images/dash_bg.jpg' %}");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .search-input {
+    width: 60%;
+    padding: 0.7rem 1rem;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    padding-right: 3rem;
+  }
+
+  .search-btn {
+    position: absolute;
+    right: 20%;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hero-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5fff5;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 20px;
+  }
+
+  .hero-banner .text {
+    max-width: 50%;
+  }
+
+  .hero-banner img {
+    width: 300px;
+    border-radius: 20px;
+  }
+
+  .action-buttons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .hero-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .hero-btn:hover {
+    background-color: #388E3C;
+  }
+
+  .plant-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .plant-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .plant-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .plant-card h4 {
+    margin: 0.8rem 0;
+    font-weight: 500;
+  }
+
+  .buy-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .buy-btn:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<div class="dashboard-container">
+
+  <!-- Search bar -->
+  <div class="search-container">
+    <input type="text" placeholder="Search plants..." class="search-input" />
+    <button class="search-btn">
+      <img src="{% static 'base/icons/search.svg' %}" alt="Search" />
+    </button>
+  </div>
+
+  <!-- Hero section -->
+  <div class="hero-banner">
+    <div class="text">
+      <h1>Find Your Perfect Plant</h1>
+      <p>Plants purify the air and uplift your mood. Browse our curated collection to greenify your home.</p>
+      <div class="action-buttons">
+        <a href="{% url 'recommend_plants' %}" class="hero-btn">🌿 Recommend Plants</a>
+        <a href="{% url 'assistant' %}" class="hero-btn">🤖 Assistant</a>
+      </div>
+    </div>
+    <img src="{% static 'base/images/head.jpg' %}" alt="Hero Plant">
+  </div>
+
+  <!-- Plant Products -->
+  <div class="plant-grid">
+    {% for plant in plants %}
+    <div class="plant-card">
+      <img src="{% static plant.image %}" alt="{{ plant.name }}">
+      <h4>{{ plant.name }}</h4>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div style="text-align: center; padding: 60px; background-color: #f6fdf7;">
+    <h2 style="font-size: 2rem;">🌿 Welcome to Your PlantPal Assistant</h2>
+    <p style="font-size: 1.1rem; margin: 20px auto; max-width: 700px;">
+        Once you bring your plants home, PlantPal becomes your virtual plant assistant.
+        Create profiles for each plant, receive timely reminders for watering, fertilizing,
+        and pruning, and even diagnose plant health issues by uploading photos. Whether
+        you’re a beginner or a seasoned plant parent, PlantPal makes growing a healthy
+        indoor jungle simple and enjoyable.
+    </p>
+
+    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 40px; flex-wrap: wrap;">
+        <a href="{% url 'plant_profiles' %}" class="assistant-card">🪴 Manage Plant Profiles</a>
+        <a href="{% url 'reminders' %}" class="assistant-card">⏰ Set Care Reminders</a>
+        <a href="{% url 'diagnose' %}" class="assistant-card">📸 Diagnose via Photo</a>
+    </div>
+</div>
+
+<style>
+    .assistant-card {
+        display: inline-block;
+        background-color: #e8f5e9;
+        padding: 20px 30px;
+        border-radius: 12px;
+        text-decoration: none;
+        color: #2e7d32;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+
+    .assistant-card:hover {
+        background-color: #c8e6c9;
+        transform: translateY(-4px);
+    }
+</style>
+{% endblock %}

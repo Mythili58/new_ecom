@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Bootstrap CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container" style="padding: 2rem;">
+  <h2>🗓️ Plant Care Reminders</h2>
+
+  <!-- Reminder Form -->
+  <form method="POST" class="mb-4">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Add Reminder</button>
+  </form>
+
+  <!-- Toast Notifications -->
+  {% if messages %}
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
+      {% for message in messages %}
+        <div id="toast-msg-{{ forloop.counter }}" class="toast align-items-center text-white bg-success border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+              {{ message }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+        <script>
+          setTimeout(function() {
+            const toast = document.getElementById("toast-msg-{{ forloop.counter }}");
+            if (toast) toast.classList.remove("show");
+          }, 3000);
+        </script>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <hr>
+
+  <!-- Upcoming Reminders -->
+  <h3>Upcoming Reminders</h3>
+  <ul class="list-unstyled">
+    {% for reminder in reminders %}
+      <li class="mb-3 border-bottom pb-2">
+        <strong>{{ reminder.plant.name }}</strong> – {{ reminder.get_care_type_display }} on {{ reminder.reminder_date }}
+        {% if reminder.note %}
+          <br><em>{{ reminder.note }}</em>
+        {% endif %}
+        <br>
+        ✅ Completed: {{ reminder.completed }}
+        <a href="?complete={{ reminder.id }}" class="ms-2 text-success">[Toggle Done]</a>
+        <a href="?delete={{ reminder.id }}" class="ms-2 text-danger">[Delete]</a>
+      </li>
+    {% empty %}
+      <li>No upcoming reminders. Add one above!</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

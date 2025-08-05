@@ -1,0 +1,18 @@
+<!-- templates/base/landing.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plant Buddy</title>
+  <link rel="stylesheet" href="{% static 'base/styles.css' %}">
+</head>
+<body class="landing">
+  <div class="landing-bg">
+    <h1>The best app for your plants</h1>
+    <div class="btn-container">
+      <a href="{% url 'login' %}" class="btn">Sign in</a>
+      <a href="{% url 'register' %}" class="btn">Create an account</a>
+    </div>
+  </div>
+</body>
+</html>

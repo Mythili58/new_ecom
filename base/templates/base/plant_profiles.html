@@ -1,0 +1,27 @@
+<!-- base/templates/base/plant_profiles.html -->
+
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container" style="padding: 2rem;">
+  <h2>🪴 Your Plant Profiles</h2>
+
+  <form method="POST" enctype="multipart/form-data" style="margin-bottom: 2rem;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Plant</button>
+  </form>
+
+  <div class="profiles">
+    {% for profile in profiles %}
+      <div style="margin-bottom: 1rem;">
+        {% if profile.image %}
+          <img src="{{ profile.image.url }}" width="100" />
+        {% endif %}
+        <strong>{{ profile.name }}</strong> ({{ profile.species }}) - {{ profile.location }}
+      </div>
+    {% empty %}
+      <p>No plants yet. Add your first one above!</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
